@@ -118,3 +118,70 @@ Here is a detailed breakdown of the "what, why, and how" behind the script's imp
 -   **Runtime:** [Node.js](https://nodejs.org/)
 -   **HTTP Client:** [Axios](https://axios-http.com/) (for making requests to the API)
 -   **Package Manager:** [npm](https://www.npmjs.com/)
+
+
+```mermaid
+flowchart TD
+    subgraph Initialization
+        A[Start Script Execution - npm run start:topWorkplaces]
+    end
+
+    A --> B{Step 1: Concurrent Data Fetching};
+
+    subgraph Fetch_All_Data
+        direction LR
+        B --> C[Promise.all];
+        C --> D[Fetch Workplaces];
+        C --> E[Fetch Shifts];
+    end
+
+    subgraph Data_Storage
+        D --> F[Store Full List of Workplaces];
+        E --> G[Store Full List of Shifts];
+    end
+
+    F & G --> H{Step 2: Filter & Create Lookup Map};
+
+    subgraph Filter_Preprocess_Workplaces
+        H --> I[Iterate through all Workplaces];
+        I --> J{Is status equal to 0?};
+        J -- Yes --> K[Add to activeWorkplaceMap];
+        J -- No --> I;
+        K --> L[Finished Iterating Workplaces];
+    end
+
+    L --> M{Step 3: Aggregate Shift Data};
+
+    subgraph Count_Completed_Shifts
+        M --> N[Iterate through all Shifts];
+        N --> O{Is shift completed and active?};
+        O -- Yes --> P[Increment shift count];
+        O -- No --> N;
+        P --> N;
+        N --> Q[Finished Iterating Shifts];
+    end
+
+    Q --> R{Step 4: Combine, Sort & Format};
+
+    subgraph Final_Processing
+        R --> S[Map shiftCounts to array];
+        S --> T[Sort by shifts descending];
+        T --> U[Slice Top 3];
+        U --> V[Format to JSON];
+        V --> W[Print to console];
+    end
+
+    W --> X([End]);
+
+    %% Styling
+    style A fill:#d4edda,stroke:#155724
+    style X fill:#f8d7da,stroke:#721c24
+    style B fill:#cce5ff,stroke:#004085
+    style H fill:#cce5ff,stroke:#004085
+    style M fill:#cce5ff,stroke:#004085
+    style R fill:#cce5ff,stroke:#004085
+```
+
+    style R fill:#cce5ff,stroke:#004085
+```
+
