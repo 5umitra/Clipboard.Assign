@@ -1,9 +1,3 @@
-Of course. A well-written `README.md` is a crucial part of any software project. It explains the project's purpose, justifies the technical decisions, and serves as a guide for anyone interacting with the code.
-
-Here is a comprehensive `README.md` file that details the entire process, from understanding the problem to implementing the final solution. You can copy and paste this directly into a `README.md` file in your repository's root directory.
-
----
-
 # Top Active Workplaces Scraper
 
 This project is a solution for the "Fetch the Most Active Workplaces" assessment. The primary goal is to build a standalone TypeScript script that queries a running application's API, processes the data, and outputs the top 3 most active workplaces based on the number of completed shifts.
